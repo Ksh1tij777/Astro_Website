@@ -1,0 +1,7 @@
+[
+  { "name": "Celestron EdgeHD 8\"", "desc": "Primary imaging OTA · f/10 SCT", "tag": "203mm APERTURE" },
+  { "name": "Sky-Watcher EQ6-R Pro", "desc": "Equatorial tracking mount · autoguided", "tag": "20KG PAYLOAD" },
+  { "name": "ZWO ASI2600MM Pro", "desc": "Cooled mono CMOS · full frame", "tag": "26 MEGAPIXEL" },
+  { "name": "SHO Filter Wheel", "desc": "7nm narrowband · 7-position", "tag": "H\u03b1 · OIII · SII" },
+  { "name": "PixInsight Suite", "desc": "Calibration & post-processing pipeline", "tag": "SOFTWARE" }
+]

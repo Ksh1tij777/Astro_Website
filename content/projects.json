@@ -1,0 +1,21 @@
+[
+  {
+    "tag": "Narrowband · Ongoing",
+    "title": "Deep Sky Atlas",
+    "desc": "Multi-night SHO acquisition of emission nebulae, building an open catalogue of the southern desert sky.",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuB3y75UAwyC2Tf00gVuIjaZi1UT7gyd8z0PNs8dqkVFTN-xIA2tZOwxo4YTejpv-OQ-UrYCCoCcZx615kgHuJ1aAi8PV67aIEIyksnGSQvgkQBV2A41oF-kYfjRuialqj-prNrQDkNKhr8eW9bfxB_J7OK549NGibSDQpUnm4uk-Maov1drfHU3uv7eUhMKg8J5DEW8SCbG_LaHQlLuSuuPmkUbuj7YSl_MQOyYPM5LzqIjmLHWDvk2AGTqefVEpAqPylJvOeBpiE4H"
+  },
+  {
+    "tag": "Astrometry · Active",
+    "title": "Variable Star Watch",
+    "desc": "Photometric light-curve monitoring of pulsating variables, contributing data to the AAVSO network.",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDT3l1v0wWMDvePtKEwh5F9vOnKous-Ih_4tAi5OvXLL-m8kxOpyBLlmMGl_3nGjSSqpdJol-mmQf57RwrIeoyFw8HWNcU43YeUbZFwenxz5Uk-Qsp4VfWVpQoqbVa6uRPAhKc0qGSDzDDrCns0VjKHXgS9Cbnh6MDVLldzPLgANwFc2Eh6CBtyGrUEMcmDFt1r5rg7ekEzRGgQpWk3vBL4GUh54WlCbIP6ukgJH6kcH9ZAyuj_XzURQFUDWaRvTksKamJcFe5THWq-"
+  },
+  {
+    "tag": "Instrumentation · Design",
+    "title": "Aperture-1 Payload",
+    "desc": "A student-built star-tracker module and optical bench targeting a high-altitude balloon flight.",
+    "image": null,
+    "placeholder": "CUBESAT RENDER"
+  }
+]
