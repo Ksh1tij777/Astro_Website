@@ -1,5 +1,52 @@
 [
-  { "day": "24", "month": "OCT", "title": "Messier Marathon", "meta": "Central Observatory · 21:00 Hrs" },
-  { "day": "08", "month": "NOV", "title": "Geminids Peak", "meta": "North Campus Dunes · 00:00 Hrs" },
-  { "day": "15", "month": "DEC", "title": "Collimation Workshop", "meta": "Lab 402 · 18:30 Hrs" }
+  { "day": "TBD", 
+    "month": "--", 
+    "title": "Primum Aspectum", 
+    "meta": "Astronomy Club X C-Cell" 
+  },
+  { "day": "TBD", 
+    "month": "--", 
+    "title": "Rocket Rumble", 
+    "meta": "Rocket Building and Launching" 
+  },
+  { "day": "TBD", 
+    "month": "--", 
+    "title": "Club Introduction",
+    "meta": "Venue: SAC" 
+  },
+  { "day": "TBD", 
+    "month": "--", 
+    "title": "Club Recruitments", 
+    "meta": "Personal Interviews" 
+  },
+  { "day": "TBD", 
+    "month": "--", 
+    "title": "Quiet Scream", 
+    "meta": "The first official Meet" 
+  },
+  { "day": "TBD", 
+    "month": "--", 
+    "title": "Glitch of the Matrix", 
+    "meta": "Tentative Hackathon" 
+  },
+  { "day": "TBD", 
+    "month": "--", 
+    "title": "Yuri’s Night", 
+    "meta": "Your First Step into the Cosmic Domains" 
+  },
+  { "day": "TBD", 
+    "month": "--", 
+    "title": "Quantz Kickstart", 
+    "meta": "Astronomy Club X Quantz" 
+  },
+  { "day": "TBD", 
+    "month": "--", 
+    "title": "Astronomy Club X Plinth", 
+    "meta": "Brahmaand, Telescope Pointing, Odin's Eye, Astromenia, Starpix, Dhoomketu" 
+  },
+  { "day": "TBD", 
+    "month": "--", 
+    "title": "Unofficial Trip", 
+    "meta": "Peaceful Night of Stargazing" 
+  }
 ]
