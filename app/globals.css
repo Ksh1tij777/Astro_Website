@@ -366,6 +366,125 @@ a:hover {
   font-size: 10.5px;
 }
 
+/* ─── Events carousel ────────────────────────────────────── */
+.carousel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.carousel__card {
+  flex: 1 1 auto;
+  min-width: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 340px;
+  animation: cardFade 0.45s ease;
+}
+@keyframes cardFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.carousel__media {
+  position: relative;
+  min-height: 260px;
+}
+.carousel__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.carousel__ph {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+}
+.carousel__body {
+  padding: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+.carousel__title {
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  color: #fff;
+  margin: 0;
+}
+.carousel__meta {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.6;
+}
+.carousel__cta {
+  margin-top: 4px;
+}
+.carousel__arrow {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(18, 20, 20, 0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.carousel__arrow:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+.carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+.carousel__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 9999px;
+  border: none;
+  padding: 0;
+  background: rgba(197, 197, 212, 0.25);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.carousel__dot.active {
+  background: var(--silver);
+  transform: scale(1.35);
+}
+@media (max-width: 760px) {
+  .carousel__card {
+    grid-template-columns: 1fr;
+  }
+  .carousel__body {
+    padding: 28px;
+  }
+  .carousel__arrow {
+    width: 44px;
+    height: 44px;
+  }
+}
+
 /* ─── Card grids ─────────────────────────────────────────── */
 .grid-cards {
   display: grid;
@@ -555,6 +674,24 @@ textarea.field {
   line-height: 1.7;
   margin: 0;
 }
+.mentor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 56px;
+}
+.mentor__card {
+  max-width: 300px;
+  width: 100%;
+}
+.team-label {
+  font-family: 'Cinzel', serif;
+  font-size: 22px;
+  color: #fff;
+  text-align: center;
+  margin: 0 0 32px;
+}
 .team {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -604,8 +741,34 @@ textarea.field {
   line-height: 1.6;
   margin: 0;
 }
-.footer {
+.credits {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   margin-top: 90px;
+}
+.credits__names {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 22px;
+  max-width: 620px;
+}
+.credits__name {
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  color: var(--silver);
+  position: relative;
+}
+.credits__name:not(:last-child)::after {
+  content: '·';
+  position: absolute;
+  right: -13px;
+  color: var(--meta);
+}
+.footer {
+  margin-top: 48px;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   padding-top: 34px;
   display: flex;

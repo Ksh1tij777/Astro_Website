@@ -24,6 +24,25 @@ export default function About() {
           </p>
         </div>
 
+        <div className="mentor">
+          <span className="eyebrow" style={{ color: meta.accent }}>
+            FACULTY MENTOR
+          </span>
+          <div className="glass team__card mentor__card">
+            <div className="team__avatar">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/prof-anupam-singh.jpg" alt="Prof. Anupam Singh" />
+            </div>
+            <div>
+              <h4 className="team__name">Prof. Anupam Singh</h4>
+              <p className="team__role">Faculty Mentor</p>
+            </div>
+            <p className="team__bio">A short line about the mentor.</p>
+          </div>
+        </div>
+
+        <h3 className="team-label">Coordinators</h3>
+
         <div className="team">
           {team.map((m) => (
             <div key={m.name} className="glass team__card">
@@ -38,6 +57,26 @@ export default function About() {
               <p className="team__bio">{m.bio}</p>
             </div>
           ))}
+        </div>
+
+        <div className="credits">
+          <span className="eyebrow" style={{ color: meta.accent }}>
+            DEVELOPED BY
+          </span>
+          <div className="credits__names">
+            {[
+              'Kshitij Verma',
+              'Ayush Agarwal',
+              'Achal Shrivastava',
+              'Yuvika Jain',
+              'Harsh Kumar',
+              'Lakshit Patira',
+            ].map((name) => (
+              <span key={name} className="credits__name">
+                {name}
+              </span>
+            ))}
+          </div>
         </div>
 
         <footer className="footer">

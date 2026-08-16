@@ -1,5 +1,42 @@
 [
-  { "day": "24", "month": "OCT", "title": "Messier Marathon", "meta": "Central Observatory · 21:00 Hrs" },
-  { "day": "08", "month": "NOV", "title": "Geminids Peak", "meta": "North Campus Dunes · 00:00 Hrs" },
-  { "day": "15", "month": "DEC", "title": "Collimation Workshop", "meta": "Lab 402 · 18:30 Hrs" }
+  { "title": "Cosmic Trail",
+    "meta": "Astronomy Club X C-Cell",
+    "image": null
+  },
+  { "title": "Rocket Rumble",
+    "meta": "Rocket Building and Launching",
+    "image": null
+  },
+  { "title": "Club Introduction",
+    "meta": "Venue: SAC",
+    "image": null
+  },
+  { "title": "Club Recruitments",
+    "meta": "Personal Interviews",
+    "image": null
+  },
+  { "title": "Quiet Scream",
+    "meta": "The first official Meet",
+    "image": null
+  },
+  { "title": "Glitch of the Matrix",
+    "meta": "Tentative Hackathon",
+    "image": null
+  },
+  { "title": "Yuri’s Night",
+    "meta": "Your First Step into the Cosmic Domains",
+    "image": null
+  },
+  { "title": "Quantz Kickstart",
+    "meta": "Astronomy Club X Quantz",
+    "image": null
+  },
+  { "title": "Astronomy Club X Plinth",
+    "meta": "Brahmaand, Telescope Pointing, Odin's Eye, Astromenia, Starpix, Dhoomketu",
+    "image": null
+  },
+  { "title": "Unofficial Trip",
+    "meta": "Peaceful Night of Stargazing",
+    "image": null
+  }
 ]
