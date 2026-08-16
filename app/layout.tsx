@@ -4,6 +4,17 @@ import ScrollProvider from '@/components/ScrollProvider';
 import SpaceBackground from '@/components/SpaceBackground';
 import Nav from '@/components/Nav';
 import CelestialGauge from '@/components/CelestialGauge';
+import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
+});
 
 export const metadata: Metadata = {
   title: 'Astronomy Club, LNMIIT',
@@ -12,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

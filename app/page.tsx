@@ -12,6 +12,7 @@ import About from '@/components/sections/About';
 export default function Page() {
   return (
     <>
+    <img src="ASTRONOMY-logo.png" alt="Astronomy Club Logo" className="nav__logo-img" />
       <Home />
       <Events />
       <Gallery />

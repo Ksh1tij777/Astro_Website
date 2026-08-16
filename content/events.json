@@ -1,7 +1,14 @@
 [
+<<<<<<< Updated upstream
   { "title": "Cosmic Trail",
     "meta": "Astronomy Club X C-Cell",
     "image": null
+=======
+  { "day": "TBD", 
+    "month": "--", 
+    "title": "Cosmic Trail", 
+    "meta": "Astronomy Club X C-Cell" 
+>>>>>>> Stashed changes
   },
   { "title": "Rocket Rumble",
     "meta": "Rocket Building and Launching",

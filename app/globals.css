@@ -81,13 +81,14 @@ a:hover {
 
 /* ─── Typography helpers ─────────────────────────────────── */
 .eyebrow {
-  font-family: 'Geist', sans-serif;
+  font-family: var(--font-jetbrains-mono), sans-serif;
   font-size: 11px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
+  margin-top: -20px;
 }
 .h-display {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-space-grotesk), sans-serif;
   font-weight: 700;
   color: #fff;
   text-transform: uppercase;
@@ -143,11 +144,16 @@ a:hover {
   padding: 16px clamp(20px, 3vw, 40px);
 }
 .nav__logo {
-  font-family: 'Cinzel', serif;
+  font-family: 'Geist', ethnocentric 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, sans-serif;
   font-size: clamp(15px, 1.4vw, 19px);
   letter-spacing: 0.24em;
   color: var(--silver);
   white-space: nowrap;
+}
+.nav__logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
 }
 /* flex:1 + min-width:0 + wrap => tabs drop to a 2nd line instead of
    clipping / shoving the CTA off-screen below ~1100px. Do not revert. */
@@ -156,10 +162,11 @@ a:hover {
   gap: clamp(10px, 1.6vw, 26px);
   align-items: center;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center; /* changed */
   flex: 1 1 auto;
   min-width: 0;
 }
+
 .navlink {
   font-family: 'Geist', sans-serif;
   font-size: 10.5px;
@@ -168,6 +175,7 @@ a:hover {
   color: #8f8e96;
   transition: color 0.3s ease;
 }
+
 .navlink.active,
 .navlink:hover {
   color: #fff;
@@ -178,7 +186,11 @@ a:hover {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   cursor: pointer;
+
+  display: block;
+  margin: 0 auto;
 }
+
 .nav__cta {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -186,6 +198,8 @@ a:hover {
   padding: 9px 22px;
   font-size: 10.5px;
   white-space: nowrap;
+
+  margin: 0 auto;
 }
 
 /* ─── Celestial gauge ────────────────────────────────────── */
