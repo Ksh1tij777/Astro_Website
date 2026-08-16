@@ -1,51 +1,51 @@
 [
-  { "day": "TBD", 
-    "month": "--", 
-    "title": "Cosmic Trail", 
-    "meta": "Astronomy Club X C-Cell" 
+  { "day": "TBD",
+    "month": "--",
+    "title": "Cosmic Trail",
+    "meta": "Astronomy Club X C-Cell"
   },
-  { "day": "TBD", 
-    "month": "--", 
+  { "day": "AUG", 
+    "month": "_", 
     "title": "Rocket Rumble", 
     "meta": "Rocket Building and Launching" 
   },
-  { "day": "TBD", 
-    "month": "--", 
+  { "day": "AUG", 
+    "month": "_", 
     "title": "Club Introduction",
     "meta": "Venue: SAC" 
   },
-  { "day": "TBD", 
-    "month": "--", 
+  { "day": "SEP", 
+    "month": "_", 
     "title": "Club Recruitments", 
     "meta": "Personal Interviews" 
   },
-  { "day": "TBD", 
-    "month": "--", 
+  { "day": "SEP", 
+    "month": "_", 
     "title": "Quiet Scream", 
     "meta": "The first official Meet" 
   },
-  { "day": "TBD", 
-    "month": "--", 
+  { "day": "SEP", 
+    "month": "_", 
     "title": "Glitch of the Matrix", 
     "meta": "Tentative Hackathon" 
   },
-  { "day": "TBD", 
-    "month": "--", 
+  { "day": "OCT", 
+    "month": "_", 
     "title": "Yuri’s Night", 
     "meta": "Your First Step into the Cosmic Domains" 
   },
-  { "day": "TBD", 
-    "month": "--", 
+  { "day": "NOV", 
+    "month": "_", 
     "title": "Quantz Kickstart", 
     "meta": "Astronomy Club X Quantz" 
   },
-  { "day": "TBD", 
-    "month": "--", 
+  { "day": "JAN", 
+    "month": "_", 
     "title": "Astronomy Club X Plinth", 
     "meta": "Brahmaand, Telescope Pointing, Odin's Eye, Astromenia, Starpix, Dhoomketu" 
   },
-  { "day": "TBD", 
-    "month": "--", 
+  { "day": "MAR", 
+    "month": "_", 
     "title": "Unofficial Trip", 
     "meta": "Peaceful Night of Stargazing" 
   }

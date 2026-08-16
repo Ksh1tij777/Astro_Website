@@ -35,9 +35,17 @@ export default function Events() {
                   <p className="event__meta">{e.meta}</p>
                 </div>
               </div>
-              <button type="button" className="btn-pill btn-ghost">
-                Secure Slot
-              </button>
+              {e.title === 'Club Recruitments' && (
+                <a
+                  href="https://forms.gle/ateF5jHtf3He5Lh39"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button type="button" className="btn-pill btn-ghost">
+                    Secure Slot
+                  </button>
+                </a>
+              )}
             </div>
           ))}
         </div>
