@@ -1,52 +1,42 @@
 [
-  { "day": "TBD",
-    "month": "--",
-    "title": "Cosmic Trail",
-    "meta": "Astronomy Club X C-Cell"
+  { "title": "Cosmic Trail",
+    "meta": "Astronomy Club X C-Cell",
+    "image": null
   },
-  { "day": "AUG", 
-    "month": "_", 
-    "title": "Rocket Rumble", 
-    "meta": "Rocket Building and Launching" 
+  { "title": "Rocket Rumble",
+    "meta": "Rocket Building and Launching",
+    "image": null
   },
-  { "day": "AUG", 
-    "month": "_", 
-    "title": "Club Introduction",
-    "meta": "Venue: SAC" 
+  { "title": "Club Introduction",
+    "meta": "Venue: SAC",
+    "image": null
   },
-  { "day": "SEP", 
-    "month": "_", 
-    "title": "Club Recruitments", 
-    "meta": "Personal Interviews" 
+  { "title": "Club Recruitments",
+    "meta": "Personal Interviews",
+    "image": null
   },
-  { "day": "SEP", 
-    "month": "_", 
-    "title": "Quiet Scream", 
-    "meta": "The first official Meet" 
+  { "title": "Quiet Scream",
+    "meta": "The first official Meet",
+    "image": null
   },
-  { "day": "SEP", 
-    "month": "_", 
-    "title": "Glitch of the Matrix", 
-    "meta": "Tentative Hackathon" 
+  { "title": "Glitch of the Matrix",
+    "meta": "Tentative Hackathon",
+    "image": null
   },
-  { "day": "OCT", 
-    "month": "_", 
-    "title": "Yuri’s Night", 
-    "meta": "Your First Step into the Cosmic Domains" 
+  { "title": "Yuri’s Night",
+    "meta": "Your First Step into the Cosmic Domains",
+    "image": null
   },
-  { "day": "NOV", 
-    "month": "_", 
-    "title": "Quantz Kickstart", 
-    "meta": "Astronomy Club X Quantz" 
+  { "title": "Quantz Kickstart",
+    "meta": "Astronomy Club X Quantz",
+    "image": null
   },
-  { "day": "JAN", 
-    "month": "_", 
-    "title": "Astronomy Club X Plinth", 
-    "meta": "Brahmaand, Telescope Pointing, Odin's Eye, Astromenia, Starpix, Dhoomketu" 
+  { "title": "Astronomy Club X Plinth",
+    "meta": "Brahmaand, Telescope Pointing, Odin's Eye, Astromenia, Starpix, Dhoomketu",
+    "image": null
   },
-  { "day": "MAR", 
-    "month": "_", 
-    "title": "Unofficial Trip", 
-    "meta": "Peaceful Night of Stargazing" 
+  { "title": "Unofficial Trip",
+    "meta": "Peaceful Night of Stargazing",
+    "image": null
   }
 ]
