@@ -629,30 +629,41 @@ textarea.field {
 }
 
 /* ─── Masonry (gallery) ──────────────────────────────────── */
+/* 3 Columns x 2 Rows Balanced Grid */
 .masonry {
-  column-count: 1;
-  column-gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
 }
-@media (min-width: 700px) {
-  .masonry {
-    column-count: 2;
-  }
-}
-@media (min-width: 1050px) {
-  .masonry {
-    column-count: 3;
-  }
-}
+
 .masonry__item {
-  break-inside: avoid;
-  margin-bottom: 20px;
-  padding: 10px;
-  border-radius: 14px;
+  width: 100%;
+  aspect-ratio: 4 / 3; /* Fixed uniform ratio sabhi cards ke liye */
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
 }
+
 .masonry__item img {
   width: 100%;
+  height: 100%;
+  object-fit: cover; /* Images ko crop karke container me perfectly fit karega */
+  object-position: center;
   display: block;
-  border-radius: 8px;
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+  .masonry {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .masonry {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ─── Keyframes ──────────────────────────────────────────── */
