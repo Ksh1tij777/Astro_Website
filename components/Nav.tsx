@@ -26,9 +26,15 @@ export default function Nav() {
           ))}
         </div>
 
-        <button type="button" className="btn-pill nav__cta">
-          Join
-        </button>
+        <a
+          href="https://forms.gle/ateF5jHtf3He5Lh39"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <button type="button" className="btn-pill nav__cta">
+            Join
+          </button>
+        </a>
       </nav>
     </header>
   );
