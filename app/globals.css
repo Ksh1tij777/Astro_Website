@@ -135,6 +135,7 @@ a:hover {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 .nav__inner {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -200,6 +201,76 @@ a:hover {
   white-space: nowrap;
 
   margin: 0 auto;
+}
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+/* Hamburger — hidden on desktop, shown on mobile */
+.nav__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.nav__burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--silver);
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
+.nav__burger.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav__burger.is-open span:nth-child(2) {
+  opacity: 0;
+}
+.nav__burger.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Mobile nav (hamburger dropdown) ── */
+@media (max-width: 860px) {
+  .nav__burger {
+    display: flex;
+  }
+  .nav__links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 22px;
+    padding: 26px 20px 32px;
+    background: rgba(8, 10, 11, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(197, 197, 212, 0.12);
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .nav__links.is-open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .navlink {
+    font-size: 13px;
+    letter-spacing: 0.24em;
+  }
 }
 
 /* ─── Celestial gauge ────────────────────────────────────── */
@@ -311,7 +382,7 @@ a:hover {
 }
 .hero__eyebrow {
   color: var(--silver);
-  letter-spacing: 0.5em;
+  letter-spacing: clamp(0.2em, 1.4vw, 0.5em);
   animation: pulseGlow 3.4s ease-in-out infinite;
 }
 .hero__logo {
