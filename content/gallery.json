@@ -1,8 +1,13 @@
 [
-  { "src": "Screenshot 2026-08-16 185637.png", "alt": "Deep space nebula" },
-  { "src": "Screenshot 2026-08-16 190254.png" },
-  { "src": "/Screenshot 2026-08-16 184000.png", "alt": "Lunar surface crater" },
-  { "src": "/Screenshot 2026-08-16 182456.png", "alt": "Milky Way core over campus" },
-  { "src": "Screenshot 2026-08-16 185400.png", "alt": "Star trails" },
-  { "src": "Screenshot 2026-08-16 185127.png", "alt": "Rocket launch" }
+  { "src": "/gallery-5.jpg", "alt": "" },
+  { "src": "/gallery-2.jpg", "alt": "" },
+  { "src": "/gallery-4.jpg", "alt": "" },
+  { "src": "/gallery-1.jpg", "alt": "" },
+  { "src": "/gallery-6.jpg", "alt": "" },
+  { "src": "/gallery-7.jpg", "alt": "" },
+  { "src": "/gallery-8.jpg", "alt": "" },
+  { "src": "/gallery-9.jpg", "alt": "" },
+  { "src": "/gallery-10.jpg", "alt": "" },
+  { "src": "/gallery-11.png", "alt": "" },
+  { "src": "/gallery-12.png", "alt": "" }
 ]
