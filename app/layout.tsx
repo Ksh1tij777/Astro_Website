@@ -4,6 +4,7 @@ import ScrollProvider from '@/components/ScrollProvider';
 import SpaceBackground from '@/components/SpaceBackground';
 import Nav from '@/components/Nav';
 import CelestialGauge from '@/components/CelestialGauge';
+import LaunchLoader from '@/components/LaunchLoader';
 import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 
 const spaceGrotesk = Space_Grotesk({
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        <LaunchLoader />
         <ScrollProvider>
           {/* Shared shell — lives once, wraps every page */}
           <SpaceBackground />

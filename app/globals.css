@@ -219,14 +219,32 @@ a:hover {
 }
 .gauge__cursor {
   position: absolute;
-  left: -3px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--silver);
-  box-shadow: 0 0 14px var(--silver);
-  transform: translateY(-50%);
+  left: 50%;
+  width: 15px;
+  height: 26px;
+  transform: translate(-50%, -50%);
   transition: top 0.12s ease-out;
+  filter: drop-shadow(0 0 8px rgba(197, 197, 212, 0.65));
+}
+.gauge__rocket {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.gauge__flame {
+  stroke: var(--silver);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.7;
+  animation: rocketFlame 0.5s ease-in-out infinite alternate;
+}
+@keyframes rocketFlame {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 0.85;
+  }
 }
 .gauge__tick {
   position: absolute;
@@ -295,6 +313,12 @@ a:hover {
   color: var(--silver);
   letter-spacing: 0.5em;
   animation: pulseGlow 3.4s ease-in-out infinite;
+}
+.hero__logo {
+  height: clamp(90px, 14vw, 140px);
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 34px rgba(197, 197, 212, 0.28));
 }
 .hero__title {
   font-size: clamp(56px, 11vw, 128px);
@@ -944,7 +968,238 @@ textarea.field {
   }
 }
 
+/* ─── Launch loader ──────────────────────────────────────── */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: #08090a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  transition: opacity 0.6s ease;
+}
+.loader--gone {
+  opacity: 0;
+  pointer-events: none;
+}
+.loader__scene {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.85s cubic-bezier(0.5, 0, 0.75, 0);
+}
+.loader--launch .loader__scene {
+  transform: translateY(-135vh);
+}
+.loader__rocket {
+  width: 44px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 0 16px rgba(197, 197, 212, 0.4));
+  animation: rocketShake 0.11s linear infinite;
+}
+.loader__flame {
+  width: 12px;
+  height: 22px;
+  margin-top: -3px;
+  border-radius: 50% 50% 46% 46% / 30% 30% 100% 100%;
+  background: radial-gradient(ellipse at 50% 20%, #fff 0%, #cfd0e0 45%, rgba(197, 197, 212, 0) 78%);
+  transform-origin: 50% 0;
+  animation: flameFlicker 0.09s infinite alternate;
+  transition: height 0.3s ease;
+}
+.loader--launch .loader__flame {
+  height: 64px;
+}
+.loader__readout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: opacity 0.4s ease;
+}
+.loader--launch .loader__readout {
+  opacity: 0;
+}
+.loader__brand {
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.3em;
+  color: var(--silver);
+  font-size: 14px;
+}
+.loader__count {
+  font-family: var(--font-jetbrains-mono), monospace;
+  letter-spacing: 0.28em;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* ─── Merch showcase ─────────────────────────────────────── */
+.merch-showcase {
+  border-radius: 22px;
+  padding: clamp(20px, 4vw, 48px);
+  background: radial-gradient(ellipse at 50% 30%, #3a3d45 0%, #1c1f23 60%, #14161a 100%);
+  border: 1px solid rgba(197, 197, 212, 0.16);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.merch-showcase img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.merch-caption {
+  text-align: center;
+  margin: 20px 0 0;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--meta);
+}
+
+/* ─── Site footer ────────────────────────────────────────── */
+.site-footer {
+  position: relative;
+  z-index: 10;
+  padding: 72px clamp(20px, 5vw, 64px) 34px;
+  background: rgba(8, 10, 11, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(197, 197, 212, 0.12);
+}
+.site-footer__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+.site-footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 140px;
+}
+.site-footer__col--right {
+  align-items: flex-start;
+}
+.site-footer__heading {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  color: #fff;
+  letter-spacing: 0.05em;
+}
+.site-footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.site-footer__links a {
+  font-family: 'Geist', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  transition: color 0.25s ease;
+}
+.site-footer__links a:hover {
+  color: #fff;
+}
+.site-footer__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex: 1 1 auto;
+}
+.site-footer__logo {
+  height: 68px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.9;
+}
+.site-footer__name {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--meta);
+}
+.site-footer__icons {
+  display: flex;
+  gap: 16px;
+}
+.site-footer__icons a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(197, 197, 212, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--silver);
+  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+.site-footer__icons a:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+.site-footer__icons svg {
+  width: 19px;
+  height: 19px;
+}
+.site-footer__bar {
+  max-width: 1200px;
+  margin: 44px auto 0;
+  padding-top: 26px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: center;
+  font-family: 'Geist', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--meta);
+}
+@media (max-width: 720px) {
+  .site-footer__inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .site-footer__col,
+  .site-footer__col--right {
+    align-items: center;
+  }
+  .site-footer__links {
+    align-items: center;
+  }
+}
+
 /* ─── Keyframes ──────────────────────────────────────────── */
+@keyframes rocketShake {
+  0% {
+    transform: translateX(-0.7px);
+  }
+  100% {
+    transform: translateX(0.7px);
+  }
+}
+@keyframes flameFlicker {
+  0% {
+    transform: scaleX(0.8) scaleY(0.92);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scaleX(1.05) scaleY(1.08);
+    opacity: 1;
+  }
+}
 @keyframes pulseGlow {
   0%,
   100% {

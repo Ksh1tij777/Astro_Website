@@ -78,11 +78,6 @@ export default function About() {
             ))}
           </div>
         </div>
-
-        <footer className="footer">
-          <span className="footer__brand"> CLUB</span>
-          <span className="footer__meta">© 2026 · Astronomy Club</span>
-        </footer>
       </Reveal>
     </section>
   );

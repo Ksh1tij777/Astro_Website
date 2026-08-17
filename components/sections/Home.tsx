@@ -5,6 +5,8 @@ export default function Home() {
     <section id="home" data-screen-label="Home" className="section section--center">
       <Reveal className="hero">
         <span className="eyebrow hero__eyebrow">LNMIIT</span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/ASTRONOMY-logo.png" alt="Astronomy Club" className="hero__logo" />
         <h1 className="h-display hero__title">Astronomy Club</h1>
         <p className="hero__sub">&ldquo;Where calculation meets the infinite wonder of the dark.&rdquo;</p>
         <button type="button" className="btn-pill hero__cta">

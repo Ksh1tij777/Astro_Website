@@ -1,11 +1,26 @@
 'use client';
 
+import { useState } from 'react';
 import Reveal from '@/components/Reveal';
 import { sections } from '@/content/sections';
 
 const meta = sections.find((s) => s.id === 'contact')!;
+const CLUB_EMAIL = 'astronomyclub@lnmiit.ac.in';
 
 export default function Contact() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const subject = encodeURIComponent(`Website enquiry from ${name || 'a visitor'}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+    // Open a pre-filled Gmail compose window addressed to the club.
+    const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${CLUB_EMAIL}&su=${subject}&body=${body}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <section id="contact" data-screen-label="Contact" className="section">
       <Reveal className="wrap contact" style={{ maxWidth: 1000 }}>
@@ -19,15 +34,32 @@ export default function Contact() {
             rotation.
           </p>
           <div className="contact__info">
-            <span>astronomylnmiit@lnmiit.ac.in</span>
+            <a href={`mailto:${CLUB_EMAIL}`}>{CLUB_EMAIL}</a>
             <span>LNMIIT · Jaipur · Rajasthan</span>
           </div>
         </div>
 
-        <form className="glass contact__form" onSubmit={(e) => e.preventDefault()}>
-          <input className="field" placeholder="Your name" />
-          <input className="field" type="email" placeholder="Your email" />
-          <textarea className="field" rows={4} placeholder="Your message" />
+        <form className="glass contact__form" onSubmit={handleSubmit}>
+          <input
+            className="field"
+            placeholder="Your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            className="field"
+            type="email"
+            placeholder="Your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <textarea
+            className="field"
+            rows={4}
+            placeholder="Your message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
           <button type="submit" className="btn-pill contact__submit">
             Transmit
           </button>

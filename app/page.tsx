@@ -6,13 +6,13 @@ import Merch from '@/components/sections/Merch';
 import Tools from '@/components/sections/Tools';
 import Contact from '@/components/sections/Contact';
 import About from '@/components/sections/About';
+import Footer from '@/components/Footer';
 
 // The section ORDER lives in exactly one visible place (and must match
 // content/sections.ts, which drives the nav, gauge and planets).
 export default function Page() {
   return (
     <>
-    <img src="ASTRONOMY-logo.png" alt="Astronomy Club Logo" className="nav__logo-img" />
       <Home />
       <Events />
       <Gallery />
@@ -21,6 +21,7 @@ export default function Page() {
       <Tools />
       <Contact />
       <About />
+      <Footer />
     </>
   );
 }

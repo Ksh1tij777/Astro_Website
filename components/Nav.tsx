@@ -10,18 +10,14 @@ export default function Nav() {
     <header className="nav">
       
       <nav className="nav__inner">
-        <img src="/ASTRONOMY-logo.png" alt="Astronomy Club Logo" className="nav__logo-img" />
         <a href="#home" className="nav__logo">
-          
+          ASTRONOMY&nbsp;CLUB
         </a>
-        
 
         {/* Links built from the single section list */}
         <div className="nav__links">
           {sections.map((s) => (
-            
             <a
-              
               key={s.id}
               href={`#${s.id}`}
               className={`navlink${activeId === s.id ? ' active' : ''}`}
