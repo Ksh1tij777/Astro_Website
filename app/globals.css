@@ -145,7 +145,7 @@ a:hover {
   padding: 16px clamp(20px, 3vw, 40px);
 }
 .nav__logo {
-  font-family: 'Geist', ethnocentric 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, sans-serif;
+  font-family: 'Geist', 'Lucida Sans', 'Lucida Grande', Geneva, Verdana, sans-serif;
   font-size: clamp(15px, 1.4vw, 19px);
   letter-spacing: 0.24em;
   color: var(--silver);
@@ -588,9 +588,29 @@ a:hover {
   .carousel__body {
     padding: 28px;
   }
+  /* Overlay the arrows on top of the slide so the photo gets full width */
+  .carousel {
+    position: relative;
+    gap: 0;
+  }
   .carousel__arrow {
-    width: 44px;
-    height: 44px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 40px;
+    height: 40px;
+    background: rgba(8, 10, 11, 0.55);
+  }
+  .carousel__arrow:first-child {
+    left: 8px;
+  }
+  .carousel__arrow:last-child {
+    right: 8px;
+  }
+  /* Taller frame so portrait club photos read well on a phone */
+  .gallery-slide {
+    aspect-ratio: 4 / 5;
   }
 }
 
