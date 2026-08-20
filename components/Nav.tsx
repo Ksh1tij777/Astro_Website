@@ -1,18 +1,24 @@
 'use client';
 
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { sections } from '@/content/sections';
 import { useScroll } from './ScrollProvider';
 
 export default function Nav() {
   const { activeId } = useScroll();
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
+
+  const getHref = (id: string) => {
+    return pathname === '/cli' ? `/#${id}` : `#${id}`;
+  };
 
   return (
     <header className="nav">
       <nav className="nav__inner">
-        <a href="#home" className="nav__logo" onClick={close}>
+        <a href={pathname === '/cli' ? '/' : '#home'} className="nav__logo" onClick={close}>
           ASTRONOMY&nbsp;CLUB
         </a>
 
@@ -21,13 +27,18 @@ export default function Nav() {
           {sections.map((s) => (
             <a
               key={s.id}
-              href={`#${s.id}`}
-              className={`navlink${activeId === s.id ? ' active' : ''}`}
+              href={getHref(s.id)}
+              className={`navlink${pathname !== '/cli' && activeId === s.id ? ' active' : ''}`}
               onClick={close}
             >
               {s.label}
             </a>
           ))}
+          {pathname === '/cli' && (
+            <a href="/cli" className="navlink active" onClick={close}>
+              CLI
+            </a>
+          )}
         </div>
 
         <div className="nav__actions">
@@ -57,3 +68,4 @@ export default function Nav() {
     </header>
   );
 }
+
