@@ -21,6 +21,7 @@ const handleClick = () => {
     if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
     clickCountRef.current = 0;
     alert('#First Part Of Golden Disc "rajharsh"');
+    triggerFinalFall(); // falls, then gone forever — no respawn
   }
 };
 
@@ -34,6 +35,14 @@ const triggerFall = () => {
     setFalling(false);
     setVisible(true);
   }, 6000);
+};
+
+const triggerFinalFall = () => {
+  if (falling || !visible) return;
+  const rect = ref.current?.getBoundingClientRect();
+  if (rect) setFallPos({ x: rect.left, y: rect.top });
+  setFalling(true);
+  setTimeout(() => setVisible(false), 900); // falls, then hidden — no respawn timer after this
 };
 
   if (!visible) return null;

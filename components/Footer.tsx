@@ -1,5 +1,11 @@
+'use client';
 const INSTAGRAM = 'https://www.instagram.com/astronomylnmiit/';
 const LINKEDIN = 'https://in.linkedin.com/company/astronomy-club-lnmiit';
+
+const handleClick = (e) => {
+  e.preventDefault();
+  alert('#Fourth Part Of Golden Disc "records"');
+}
 
 export default function Footer() {
   return (
@@ -13,6 +19,7 @@ export default function Footer() {
             <a href="#gallery">Gallery</a>
             <a href="#about">Our Team</a>
             <a href="#contact">Contact</a>
+            <a onClick={(e) => handleClick(e)} href="#about">About</a>
           </nav>
         </div>
 
