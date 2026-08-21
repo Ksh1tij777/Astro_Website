@@ -3,20 +3,22 @@
 import { useState } from 'react';
 import Reveal from '@/components/Reveal';
 import { sections } from '@/content/sections';
+import { useFragments } from '@/components/fragments/FragmentContext';
 
 const meta = sections.find((s) => s.id === 'contact')!;
 const CLUB_EMAIL = 'astronomyclub@lnmiit.ac.in';
 
 export default function Contact() {
+  const { collect } = useFragments();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const msg = '#Third Part Of Golden Disc';
-    if(message===msg){
-      alert('#Third Part Of Golden Disc "gaia"');
+    if (message.trim() === '#Third Part Of Golden Disc') {
+      collect('third');
+      return; // secret message → collect the fragment, don't open Gmail
     }
     const subject = encodeURIComponent(`Website enquiry from ${name || 'a visitor'}`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);

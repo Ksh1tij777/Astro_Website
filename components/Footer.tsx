@@ -1,13 +1,17 @@
 'use client';
+import { useFragments } from '@/components/fragments/FragmentContext';
+
 const INSTAGRAM = 'https://www.instagram.com/astronomylnmiit/';
 const LINKEDIN = 'https://in.linkedin.com/company/astronomy-club-lnmiit';
 
-const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-  e.preventDefault();
-  alert('#Fourth Part Of Golden Disc "records"');
-};
-
 export default function Footer() {
+  const { collect } = useFragments();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    collect('fourth');
+  };
+
   return (
     <footer className="site-footer">
       <div className="site-footer__inner">

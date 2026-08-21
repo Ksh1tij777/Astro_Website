@@ -1,7 +1,9 @@
 'use client';
 import { useState, useRef } from 'react';
+import { useFragments } from '@/components/fragments/FragmentContext';
 
 export default function AstronautWalker() {
+  const { collect } = useFragments();
   const [falling, setFalling] = useState(false);
   const [visible, setVisible] = useState(true);
   const [fallPos, setFallPos] = useState({ x: 0, y: 0 });
@@ -20,7 +22,7 @@ const handleClick = () => {
   } else if (clickCountRef.current === 2) {
     if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
     clickCountRef.current = 0;
-    alert('#First Part Of Golden Disc "rajharsh"');
+    collect('first');
     triggerFinalFall(); // falls, then gone forever — no respawn
   }
 };

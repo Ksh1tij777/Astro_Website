@@ -2,10 +2,12 @@
 import Reveal from '@/components/Reveal';
 import { sections } from '@/content/sections';
 import team from '@/content/team.json';
+import { useFragments } from '@/components/fragments/FragmentContext';
 
 const meta = sections.find((s) => s.id === 'about')!;
 
 export default function About() {
+  const { collect } = useFragments();
   return (
     <section
       id="about"
@@ -78,7 +80,7 @@ export default function About() {
         className="credits__name"
         onDoubleClick={
           name === 'Kshitij Verma'
-            ? () => alert('#Second Part Of Golden Disc "13564/"')
+            ? () => collect('second')
             : undefined
         }
       >

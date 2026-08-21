@@ -6,6 +6,8 @@ import Nav from '@/components/Nav';
 import CelestialGauge from '@/components/CelestialGauge';
 import LaunchLoader from '@/components/LaunchLoader';
 import AstronautWalker from '@/components/AstronautWalker';
+import { FragmentProvider } from '@/components/fragments/FragmentContext';
+import FragmentHUD from '@/components/fragments/FragmentHUD';
 import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 
 const spaceGrotesk = Space_Grotesk({
@@ -35,15 +37,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <LaunchLoader />
-        <ScrollProvider>
-          <SpaceBackground />
-          <div className="vignette" aria-hidden />
-          <Nav />
-          <CelestialGauge />
-          <AstronautWalker />
-          <main className="main">{children}</main>
-        </ScrollProvider>
+        <FragmentProvider>
+          <LaunchLoader />
+          <ScrollProvider>
+            <SpaceBackground />
+            <div className="vignette" aria-hidden />
+            <Nav />
+            <CelestialGauge />
+            <AstronautWalker />
+            <FragmentHUD />
+            <main className="main">{children}</main>
+          </ScrollProvider>
+        </FragmentProvider>
       </body>
     </html>
   );
