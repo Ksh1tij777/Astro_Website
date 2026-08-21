@@ -2,10 +2,10 @@
 const INSTAGRAM = 'https://www.instagram.com/astronomylnmiit/';
 const LINKEDIN = 'https://in.linkedin.com/company/astronomy-club-lnmiit';
 
-const handleClick = (e) => {
+const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
   e.preventDefault();
   alert('#Fourth Part Of Golden Disc "records"');
-}
+};
 
 export default function Footer() {
   return (
