@@ -14,6 +14,10 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const msg = '#Third Part Of Golden Disc';
+    if(message===msg){
+      alert('#Third Part Of Golden Disc "gaia"');
+    }
     const subject = encodeURIComponent(`Website enquiry from ${name || 'a visitor'}`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
     // Open a pre-filled Gmail compose window addressed to the club.

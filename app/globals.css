@@ -39,6 +39,73 @@ a:hover {
   font-style: normal;
   line-height: 1;
 }
+.astronaut-walker {
+  position: fixed;
+  z-index: 9999;
+  cursor: pointer;
+  width: 44px;
+  height: 50px;
+  animation: walk-boundary 22s steps(60) infinite;
+}
+
+.astronaut-walker__bounce {
+  width: 100%;
+  height: 100%;
+  animation: astronaut-bob 0.45s ease-in-out infinite;
+}
+
+.astronaut-walker__svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.4));
+}
+
+.astronaut-walker__arm-l,
+.astronaut-walker__leg-r {
+  transform-origin: 32px 42px;
+  animation: limb-swing-a 0.45s ease-in-out infinite;
+}
+.astronaut-walker__arm-r,
+.astronaut-walker__leg-l {
+  transform-origin: 32px 42px;
+  animation: limb-swing-b 0.45s ease-in-out infinite;
+}
+
+@keyframes limb-swing-a {
+  0%, 100% { transform: rotate(-16deg); }
+  50%      { transform: rotate(16deg); }
+}
+@keyframes limb-swing-b {
+  0%, 100% { transform: rotate(16deg); }
+  50%      { transform: rotate(-16deg); }
+}
+
+@keyframes astronaut-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+
+@keyframes walk-boundary {
+  0%   { top: 0; left: 0; transform: scaleX(1); }
+  24%  { top: 0; left: calc(100vw - 44px); transform: scaleX(1); }
+  25%  { top: 0; left: calc(100vw - 44px); transform: scaleX(-1); }
+  49%  { top: calc(100vh - 50px); left: calc(100vw - 44px); transform: scaleX(-1); }
+  50%  { top: calc(100vh - 50px); left: calc(100vw - 44px); transform: scaleX(-1); }
+  74%  { top: calc(100vh - 50px); left: 0; transform: scaleX(-1); }
+  75%  { top: calc(100vh - 50px); left: 0; transform: scaleX(1); }
+  99%  { top: 0; left: 0; transform: scaleX(1); }
+  100% { top: 0; left: 0; transform: scaleX(1); }
+}
+
+.astronaut-walker--falling {
+  animation: astronaut-fall 0.9s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+  pointer-events: none;
+}
+
+@keyframes astronaut-fall {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(120vh) rotate(400deg); opacity: 0; }
+}
 
 /* ─── Background layers ──────────────────────────────────── */
 .space-bg {

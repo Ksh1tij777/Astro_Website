@@ -1,3 +1,4 @@
+'use client';
 import Reveal from '@/components/Reveal';
 import { sections } from '@/content/sections';
 import team from '@/content/team.json';
@@ -31,7 +32,7 @@ export default function About() {
           <div className="glass team__card mentor__card">
             <div className="team__avatar">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/prof-anupam-singh.jpg" alt="Prof. Anupam Singh" />
+              <img src="/FourthPart-records.jpg" alt="Prof. Anupam Singh" />
             </div>
             <div>
               <h4 className="team__name">Prof. Anupam Singh</h4>
@@ -59,25 +60,33 @@ export default function About() {
           ))}
         </div>
 
-        <div className="credits">
-          <span className="eyebrow" style={{ color: meta.accent }}>
-            DEVELOPED BY
-          </span>
-          <div className="credits__names">
-            {[
-              'Kshitij Verma',
-              'Ayush Agarwal',
-              'Achal Shrivastava',
-              'Yuvika Jain',
-              'Harsh Kumar',
-              'Lakshit Patira',
-            ].map((name) => (
-              <span key={name} className="credits__name">
-                {name}
-              </span>
-            ))}
-          </div>
-        </div>
+       <div className="credits">
+  <span className="eyebrow" style={{ color: meta.accent }}>
+    DEVELOPED BY
+  </span>
+  <div className="credits__names">
+    {[
+      'Kshitij Verma',
+      'Ayush Agarwal',
+      'Achal Shrivastava',
+      'Yuvika Jain',
+      'Harsh Kumar',
+      'Lakshit Patira',
+    ].map((name) => (
+      <span
+        key={name}
+        className="credits__name"
+        onDoubleClick={
+          name === 'Kshitij Verma'
+            ? () => alert('#Second Part Of Golden Disc "13564/"')
+            : undefined
+        }
+      >
+        {name}
+      </span>
+    ))}
+  </div>
+</div>
       </Reveal>
     </section>
   );

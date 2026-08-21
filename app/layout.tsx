@@ -5,6 +5,7 @@ import SpaceBackground from '@/components/SpaceBackground';
 import Nav from '@/components/Nav';
 import CelestialGauge from '@/components/CelestialGauge';
 import LaunchLoader from '@/components/LaunchLoader';
+import AstronautWalker from '@/components/AstronautWalker';
 import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 
 const spaceGrotesk = Space_Grotesk({
@@ -36,11 +37,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <LaunchLoader />
         <ScrollProvider>
-          {/* Shared shell — lives once, wraps every page */}
           <SpaceBackground />
           <div className="vignette" aria-hidden />
           <Nav />
           <CelestialGauge />
+          <AstronautWalker />
           <main className="main">{children}</main>
         </ScrollProvider>
       </body>
