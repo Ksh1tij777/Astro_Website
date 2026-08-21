@@ -1,6 +1,5 @@
 import Reveal from '@/components/Reveal';
 import { sections } from '@/content/sections';
-import projects from '@/content/projects.json';
 
 const meta = sections.find((s) => s.id === 'projects')!;
 
@@ -15,24 +14,13 @@ export default function Projects() {
           <h2 className="h-section">Projects</h2>
         </div>
 
-        <div className="grid-cards grid-cards--3">
-          {projects.map((p) => (
-            <div key={p.title} className="glass card">
-              {p.image ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={p.image} alt={p.title} />
-              ) : (
-                <div className="ph card__media">{p.placeholder}</div>
-              )}
-              <div className="card__body">
-                <span className="card__tag" style={{ color: meta.accent }}>
-                  {p.tag}
-                </span>
-                <h3 className="card__title">{p.title}</h3>
-                <p className="card__desc">{p.desc}</p>
-              </div>
-            </div>
-          ))}
+        <div className="coming-soon glass">
+          <span className="coming-soon__label" style={{ color: meta.accent }}>
+            Coming Soon
+          </span>
+          <p className="coming-soon__text">
+            New missions are being charted. Check back as our projects launch.
+          </p>
         </div>
       </Reveal>
     </section>

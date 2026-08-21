@@ -39,24 +39,24 @@ export default function CoordinateModal({ isOpen, onClose }: CoordinateModalProp
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
     setSuccessMsg('');
-
-    const cleanRA = raInput.trim().toUpperCase().replace(/\s+/g, ' ');
-    const cleanDec = decInput.trim().replace(/\s+/g, ' ');
-
-    // Expected Passwords:
-    // RA : 10H 45M
-    // Dec : 26.936339, 75.923260
-    const targetRA = '10H 45M';
-    const targetDec = '26.936339, 75.923260';
-
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      if (cleanRA === targetRA && cleanDec === targetDec) {
+    // The answer is verified on the server (app/api/verify-coordinates) so it
+    // is never exposed in the browser. Formatting (spaces/case/symbols) and
+    // small rounding of the lat/long are tolerated there.
+    try {
+      const res = await fetch('/api/verify-coordinates', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ra: raInput, dec: decInput }),
+      });
+      const data = await res.json();
+
+      if (data.ok) {
         setSuccessMsg('COORDINATES LOCKED. QUANTUM ALIGNMENT ESTABLISHED.');
         setTimeout(() => {
           onClose();
@@ -64,12 +64,12 @@ export default function CoordinateModal({ isOpen, onClose }: CoordinateModalProp
         }, 1200);
       } else {
         setIsSubmitting(false);
-        let errs = [];
-        if (cleanRA !== targetRA) errs.push('Invalid RA');
-        if (cleanDec !== targetDec) errs.push('Invalid Dec');
-        setErrorMsg(`ACCESS DENIED: ${errs.join(' & ')}. Retrying quantum alignment...`);
+        setErrorMsg('ACCESS DENIED: coordinates not recognized. Retrying quantum alignment...');
       }
-    }, 600);
+    } catch {
+      setIsSubmitting(false);
+      setErrorMsg('LINK FAILURE: could not reach the gateway. Try again.');
+    }
   };
 
   return (
