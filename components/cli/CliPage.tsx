@@ -4,6 +4,20 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import './cli.css';
 
+// The passphrase winners report to Mission Control. Change per event.
+const WIN_CODE = 'VOYAGER//1977//CONTACT';
+
+const DISC_ART = `
+         .-""""""-.
+       .'  .::::.  '.
+      /  .::::::::.  \\
+     |  :::: () ::::  |
+     |  ':::::::::' . |
+      \\  '::::::::'  /
+       '.  ':::;'  .'
+         '-......-'
+     T H E   R E C O R D`;
+
 interface TerminalLine {
   id: string;
   type: 'cmd' | 'text' | 'system' | 'success' | 'error' | 'warning' | 'banner';
@@ -20,6 +34,7 @@ export default function CliPage() {
   const [theme, setTheme] = useState<'cyan' | 'emerald' | 'amber' | 'violet'>('cyan');
   const [scanlines, setScanlines] = useState(true);
   const [currentTime, setCurrentTime] = useState('');
+  const [won, setWon] = useState(false);
 
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -66,42 +81,107 @@ export default function CliPage() {
     }
   }, [lines]);
 
+  // A short ascending arpeggio synthesised live (no audio file needed) — the
+  // "first contact" tones that play when the final answer is accepted.
+  const playContactTone = () => {
+    try {
+      const AC =
+        window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      if (!AC) return;
+      const ctx = new AC();
+      const notes = [523.25, 659.25, 783.99, 1046.5, 1318.51]; // C5 E5 G5 C6 E6
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        const t = ctx.currentTime + i * 0.16;
+        gain.gain.setValueAtTime(0.0001, t);
+        gain.gain.exponentialRampToValueAtTime(0.28, t + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.6);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.65);
+      });
+    } catch {
+      /* audio not available — ignore */
+    }
+  };
+
+  const runWinSequence = () => {
+    playContactTone();
+    const seq: TerminalLine[] = [
+      { id: 'w1', type: 'system', content: '> TRANSMISSION VERIFIED' },
+      { id: 'w2', type: 'text', content: '> cross-referencing pulsar map ............ OK' },
+      { id: 'w3', type: 'text', content: '> reassembling golden record .............. OK' },
+      { id: 'w4', type: 'text', content: '> decoding the sounds of earth ............ OK' },
+      { id: 'w5', type: 'banner', content: DISC_ART },
+      { id: 'w6', type: 'success', content: '> SIGNAL RESOLVED — FIRST CONTACT ESTABLISHED' },
+      { id: 'w7', type: 'system', content: '> You listened when the others only looked away.' },
+      { id: 'w8', type: 'system', content: '> Welcome to the Signal Corps.' },
+      { id: 'w9', type: 'success', content: `> FINAL TRANSMISSION CODE:  ${WIN_CODE}` },
+      { id: 'w10', type: 'text', content: '> Report this code to Mission Control to claim your place.' },
+      { id: 'w11', type: 'text', content: "> The terminal still listens — try 'help'." },
+    ];
+    seq.forEach((line, i) => {
+      setTimeout(() => setLines((prev) => [...prev, line]), 380 * (i + 1));
+    });
+  };
+
   const handleCommand = (userAnswer: string) => {
     const rawInput = userAnswer;
     const trimmed = rawInput.trim();
     if (!trimmed) return;
 
     const cmdId = Date.now().toString();
-    const userLine: TerminalLine = {
-      id: cmdId,
-      type: 'cmd',
-      cmdText: rawInput,
-    };
+    const userLine: TerminalLine = { id: cmdId, type: 'cmd', cmdText: rawInput };
 
     setHistory((prev) => [...prev, rawInput]);
     setHistoryIdx(-1);
+    setInputVal('');
 
-    const cleanInput = trimmed.toLowerCase().replace(/\s+/g, ' ');
-    const targetAnswer = 'astro tree is the world tree where it all happens';
+    const cmd = trimmed.toLowerCase().replace(/\s+/g, ' ');
+    const reply = (type: TerminalLine['type'], content: string) =>
+      setLines((prev) => [...prev, userLine, { id: cmdId + '-out', type, content }]);
 
-    let resultLine: TerminalLine;
-
-    if (cleanInput === targetAnswer) {
-      resultLine = {
-        id: cmdId + '-out',
-        type: 'success',
-        content: 'Congratulations!! Here your voyage begins now',
-      };
-    } else {
-      resultLine = {
-        id: cmdId + '-out',
-        type: 'error',
-        content: 'Incorrect transmission message. Try again.',
-      };
+    // Utility / easter-egg commands
+    switch (cmd) {
+      case 'help':
+        reply('text', 'commands:  help · sing · whoami · rocky · clear · exit');
+        return;
+      case 'clear':
+        setLines([]);
+        return;
+      case 'sing':
+        playContactTone();
+        reply('text', '> ♪ contact tones replayed');
+        return;
+      case 'whoami':
+        reply('text', won ? '> signal-corps operative' : '> anonymous listener');
+        return;
+      case 'rocky':
+        reply('text', '> "question? ... good, good, good." 🎵');
+        return;
+      case 'exit':
+        router.push('/');
+        return;
     }
 
-    setLines((prev) => [...prev, userLine, resultLine]);
-    setInputVal('');
+    const targetAnswer = 'astro tree is the world tree where it all happens';
+
+    if (cmd === targetAnswer) {
+      if (won) {
+        reply('system', '> Contact already established.');
+        return;
+      }
+      setWon(true);
+      setLines((prev) => [...prev, userLine]);
+      runWinSequence();
+      return;
+    }
+
+    reply('error', 'Incorrect transmission message. Try again.');
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
