@@ -7,6 +7,10 @@ import './cli.css';
 // The passphrase winners report to Mission Control. Change per event.
 const WIN_CODE = 'VOYAGER//1977//CONTACT';
 
+// Google Apps Script web-app URL that logs the winning team to a Sheet.
+// Set NEXT_PUBLIC_LOG_URL in your env (Vercel) to your deployed script URL.
+const LOG_URL = process.env.NEXT_PUBLIC_LOG_URL ?? '';
+
 const DISC_ART = `
          .-""""""-.
        .'  .::::.  '.
@@ -35,6 +39,8 @@ export default function CliPage() {
   const [scanlines, setScanlines] = useState(true);
   const [currentTime, setCurrentTime] = useState('');
   const [won, setWon] = useState(false);
+  const [awaitingTeam, setAwaitingTeam] = useState(false);
+  const [logged, setLogged] = useState(false);
 
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -122,11 +128,38 @@ export default function CliPage() {
       { id: 'w8', type: 'system', content: '> Welcome to the Signal Corps.' },
       { id: 'w9', type: 'success', content: `> FINAL TRANSMISSION CODE:  ${WIN_CODE}` },
       { id: 'w10', type: 'text', content: '> Report this code to Mission Control to claim your place.' },
-      { id: 'w11', type: 'text', content: "> The terminal still listens — try 'help'." },
+      { id: 'w11', type: 'system', content: '> Log your contact: type your TEAM NAME and press Enter.' },
     ];
     seq.forEach((line, i) => {
       setTimeout(() => setLines((prev) => [...prev, line]), 380 * (i + 1));
     });
+    // After the reveal finishes, start listening for the team name.
+    setTimeout(() => setAwaitingTeam(true), 380 * (seq.length + 1));
+  };
+
+  // Append the winning team + completion time to the Google Sheet.
+  const logWinner = async (team: string) => {
+    const finishedAt = new Date().toLocaleString();
+    if (LOG_URL) {
+      try {
+        await fetch(LOG_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ team, time: finishedAt }),
+        });
+      } catch {
+        /* fire-and-forget; the sheet timestamps on its side */
+      }
+    }
+    setLines((prev) => [
+      ...prev,
+      {
+        id: 'logged-' + Date.now(),
+        type: 'success',
+        content: `> CONTACT LOGGED — ${team} · ${finishedAt}`,
+      },
+    ]);
   };
 
   const handleCommand = (userAnswer: string) => {
@@ -144,6 +177,15 @@ export default function CliPage() {
     const cmd = trimmed.toLowerCase().replace(/\s+/g, ' ');
     const reply = (type: TerminalLine['type'], content: string) =>
       setLines((prev) => [...prev, userLine, { id: cmdId + '-out', type, content }]);
+
+    // After winning, the next line typed is the team name → log it once.
+    if (awaitingTeam && !logged) {
+      setLines((prev) => [...prev, userLine]);
+      setAwaitingTeam(false);
+      setLogged(true);
+      logWinner(trimmed);
+      return;
+    }
 
     // Utility / easter-egg commands
     switch (cmd) {
