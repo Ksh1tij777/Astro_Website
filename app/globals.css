@@ -483,6 +483,22 @@ a:hover {
   font-weight: 500;
   font-size: 12px;
 }
+.hero__cta--locked {
+  background: rgba(197, 197, 212, 0.18);
+  color: var(--silver);
+  border: 1px solid rgba(197, 197, 212, 0.3);
+}
+.hero__lockmsg {
+  margin: 4px 0 0;
+  max-width: 420px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+  font-style: italic;
+  color: var(--meta);
+  animation: cardFade 0.4s ease;
+}
 .hero__hint {
   position: absolute;
   bottom: 44px;

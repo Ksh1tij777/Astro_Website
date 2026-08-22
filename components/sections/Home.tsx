@@ -3,9 +3,26 @@
 import { useState } from 'react';
 import Reveal from '@/components/Reveal';
 import CoordinateModal from '@/components/cli/CoordinateModal';
+import { FRAGMENTS, useFragments } from '@/components/fragments/FragmentContext';
+
+// true = "Begin the Voyage" only opens once all four disc fragments are found.
+// Set false to unlock the button for testing / outside the event.
+const REQUIRE_FULL_DISC = true;
 
 export default function Home() {
+  const { collected } = useFragments();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [lockMsg, setLockMsg] = useState(false);
+
+  const discComplete = collected.length >= FRAGMENTS.length;
+
+  const handleBegin = () => {
+    if (REQUIRE_FULL_DISC && !discComplete) {
+      setLockMsg(true);
+      return;
+    }
+    setIsModalOpen(true);
+  };
 
   return (
     <section id="home" data-screen-label="Home" className="section section--center">
@@ -17,17 +34,30 @@ export default function Home() {
         <p className="hero__sub">&ldquo;Where calculation meets the infinite wonder of the dark.&rdquo;</p>
         <button
           type="button"
-          className="btn-pill hero__cta"
-          onClick={() => setIsModalOpen(true)}
+          className={`btn-pill hero__cta${REQUIRE_FULL_DISC && !discComplete ? ' hero__cta--locked' : ''}`}
+          onClick={handleBegin}
         >
-          Begin the Voyage
+          {REQUIRE_FULL_DISC && !discComplete ? (
+            <>
+              <span className="material-symbols-outlined" style={{ fontSize: 15, verticalAlign: '-3px', marginRight: 6 }}>
+                lock
+              </span>
+              Begin the Voyage
+            </>
+          ) : (
+            'Begin the Voyage'
+          )}
         </button>
+
+        {lockMsg && !discComplete && (
+          <p className="hero__lockmsg">
+            ⟟ The disc is incomplete — {collected.length}/{FRAGMENTS.length} fragments recovered. Assemble all four to
+            chart your voyage.
+          </p>
+        )}
       </Reveal>
 
-      <CoordinateModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      <CoordinateModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       <div className="hero__hint">
         <span className="eyebrow" style={{ fontSize: 10, letterSpacing: '0.25em' }}>
@@ -40,4 +70,3 @@ export default function Home() {
     </section>
   );
 }
-
