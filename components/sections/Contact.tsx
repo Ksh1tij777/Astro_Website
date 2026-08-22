@@ -13,6 +13,7 @@ export default function Contact() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [status, setStatus] = useState<'idle' | 'ok' | 'bad'>('idle');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,13 +21,10 @@ export default function Contact() {
     const normalized = message.toLowerCase().replace(/[^a-z ]/g, '').replace(/\s+/g, ' ').trim();
     if (normalized === 'hello from the children of planet earth') {
       collect('third');
-      return; // greeting recognised → collect the fragment, don't open Gmail
+      setStatus('ok');
+    } else {
+      setStatus('bad');
     }
-    const subject = encodeURIComponent(`Website enquiry from ${name || 'a visitor'}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-    // Open a pre-filled Gmail compose window addressed to the club.
-    const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${CLUB_EMAIL}&su=${subject}&body=${body}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -75,6 +73,12 @@ export default function Contact() {
           <button type="submit" className="btn-pill contact__submit">
             Transmit
           </button>
+          {status === 'ok' && (
+            <p className="contact__status contact__status--ok">Signal received.</p>
+          )}
+          {status === 'bad' && (
+            <p className="contact__status contact__status--bad">Incorrect message. Try again.</p>
+          )}
         </form>
       </Reveal>
     </section>
