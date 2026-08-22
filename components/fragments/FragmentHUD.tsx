@@ -3,6 +3,10 @@
 import { useEffect, useState } from 'react';
 import { FINAL_URL, FRAGMENTS, Fragment, useFragments } from './FragmentContext';
 
+// true  = the 0/4 counter is always visible (good for testing / a teaser)
+// false = counter stays hidden until the first fragment is found (secret hunt)
+const ALWAYS_SHOW_COUNTER = true;
+
 export default function FragmentHUD() {
   const { collected, pulse, last } = useFragments();
   const [burst, setBurst] = useState<Fragment | null>(null);
@@ -28,8 +32,8 @@ export default function FragmentHUD() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pulse]);
 
-  // Don't render the counter until at least one fragment is found (keeps it a secret).
-  if (count === 0 && !takeover) return null;
+  // Keep the counter hidden until the first fragment is found (unless testing).
+  if (count === 0 && !takeover && !ALWAYS_SHOW_COUNTER) return null;
 
   return (
     <>
