@@ -13,7 +13,7 @@ export const FRAGMENTS: Fragment[] = [
 ];
 
 // Revealed once all four are collected. Set this to the real destination.
-export const FINAL_URL = 'github.com/rajharsh/gaia-records';
+export const FINAL_URL = 'github.com/rajharsh13564/gaia_records';
 
 const STORAGE_KEY = 'golden-disc-fragments';
 
