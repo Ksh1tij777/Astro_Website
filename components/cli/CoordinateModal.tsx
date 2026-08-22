@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTeam } from '@/components/team/TeamContext';
 import './cli.css';
 
 interface CoordinateModalProps {
@@ -11,6 +12,7 @@ interface CoordinateModalProps {
 
 export default function CoordinateModal({ isOpen, onClose }: CoordinateModalProps) {
   const router = useRouter();
+  const { team, refresh } = useTeam();
   const [raInput, setRaInput] = useState('');
   const [decInput, setDecInput] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -52,12 +54,13 @@ export default function CoordinateModal({ isOpen, onClose }: CoordinateModalProp
       const res = await fetch('/api/verify-coordinates', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ra: raInput, dec: decInput }),
+        body: JSON.stringify({ ra: raInput, dec: decInput, teamCode: team?.teamCode }),
       });
       const data = await res.json();
 
       if (data.ok) {
         setSuccessMsg('COORDINATES LOCKED. QUANTUM ALIGNMENT ESTABLISHED.');
+        refresh();
         setTimeout(() => {
           onClose();
           router.push('/cli');

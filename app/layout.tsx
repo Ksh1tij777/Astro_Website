@@ -8,6 +8,9 @@ import LaunchLoader from '@/components/LaunchLoader';
 import AstronautWalker from '@/components/AstronautWalker';
 import { FragmentProvider } from '@/components/fragments/FragmentContext';
 import FragmentHUD from '@/components/fragments/FragmentHUD';
+import { TeamProvider } from '@/components/team/TeamContext';
+import TeamGate from '@/components/team/TeamGate';
+import TeamHUD from '@/components/team/TeamHUD';
 import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 
 const spaceGrotesk = Space_Grotesk({
@@ -37,18 +40,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <FragmentProvider>
-          <LaunchLoader />
-          <ScrollProvider>
-            <SpaceBackground />
-            <div className="vignette" aria-hidden />
-            <Nav />
-            <CelestialGauge />
-            <AstronautWalker />
-            <FragmentHUD />
-            <main className="main">{children}</main>
-          </ScrollProvider>
-        </FragmentProvider>
+        <TeamProvider>
+          <FragmentProvider>
+            <LaunchLoader />
+            <TeamGate />
+            <ScrollProvider>
+              <SpaceBackground />
+              <div className="vignette" aria-hidden />
+              <Nav />
+              <CelestialGauge />
+              <AstronautWalker />
+              <FragmentHUD />
+              <TeamHUD />
+              <main className="main">{children}</main>
+            </ScrollProvider>
+          </FragmentProvider>
+        </TeamProvider>
       </body>
     </html>
   );

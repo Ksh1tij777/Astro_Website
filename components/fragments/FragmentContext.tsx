@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useTeam } from '@/components/team/TeamContext';
 
 export type Fragment = { id: string; slot: number; value: string };
 
@@ -38,6 +39,9 @@ export function FragmentProvider({ children }: { children: React.ReactNode }) {
   const [pulse, setPulse] = useState(0);
   const [last, setLast] = useState<Fragment | null>(null);
   const collectedRef = useRef<string[]>([]);
+  const { team } = useTeam();
+  const teamCodeRef = useRef<string | null>(null);
+  teamCodeRef.current = team?.teamCode ?? null;
 
   // Restore progress (survives moving between / and /cli, and refreshes).
   useEffect(() => {
@@ -84,6 +88,17 @@ export function FragmentProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
     } catch {
       /* ignore */
+    }
+
+    const teamCode = teamCodeRef.current;
+    if (teamCode) {
+      fetch('/api/team/progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ teamCode, event: 'fragment', fragmentId: id }),
+      }).catch(() => {
+        /* fire-and-forget — the local disc HUD already reflects collection */
+      });
     }
   }, []);
 
