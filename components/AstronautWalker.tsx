@@ -57,6 +57,7 @@ const triggerFinalFall = () => {
       onClick={handleClick}
       role="button"
       aria-label="Dark astronaut easter egg"
+      title="⟟ a lost wanderer — knock twice"
     >
       <div className="astronaut-walker__bounce">
   <svg viewBox="0 0 64 72" className="astronaut-walker__svg" xmlns="http://www.w3.org/2000/svg">

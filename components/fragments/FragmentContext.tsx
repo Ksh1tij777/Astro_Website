@@ -53,6 +53,23 @@ export function FragmentProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  // Cryptic riddle hub for the four fragments — printed once to the console,
+  // the classic place a curious solver goes looking.
+  useEffect(() => {
+    const head = 'color:#d0a060;font-size:14px;letter-spacing:2px;font-weight:bold';
+    const dim = 'color:#8f8e96;font-size:12px;font-style:italic';
+    // eslint-disable-next-line no-console
+    console.log('%c⟟ INTERCEPTED TRANSMISSION — THE GOLDEN DISC (0/4)', head);
+    // eslint-disable-next-line no-console
+    console.log(
+      '%cI · A lost wanderer drifts the edges of the void — greet it twice, and it lets a fragment go.\n' +
+        "II · Among those who built this world, one maker's name still hums — strike it twice where the crew is credited.\n" +
+        'III · The Record opened with hello. Say what Earth’s children said, on the channel where we listen.\n' +
+        'IV · At the foot of everything, one door claims to lead home — but it doubles back instead.',
+      dim,
+    );
+  }, []);
+
   const collect = useCallback((id: string) => {
     // Ignore unknown ids and ones already collected (so no re-animation).
     const frag = FRAGMENTS.find((f) => f.id === id);

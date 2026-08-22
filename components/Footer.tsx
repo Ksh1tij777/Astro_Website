@@ -23,7 +23,7 @@ export default function Footer() {
             <a href="#gallery">Gallery</a>
             <a href="#about">Our Team</a>
             <a href="#contact">Contact</a>
-            <a onClick={(e) => handleClick(e)} href="#about">About</a>
+            <a onClick={(e) => handleClick(e)} href="#about" title="⟟ a door that doubles back">About</a>
           </nav>
         </div>
 

@@ -40,7 +40,11 @@ export default function About() {
               <h4 className="team__name">Prof. Anupam Singh</h4>
               <p className="team__role">Faculty Mentor</p>
             </div>
-            <p className="team__bio">A short line about the mentor.</p>
+            <p className="team__bio">
+              With deep experience across astronomy and astrophysics, Prof. Anupam Singh guides the
+              Astronomy Club as our faculty mentor — steering its scientific pursuits and inspiring
+              every voyage into the cosmos.
+            </p>
           </div>
         </div>
 
@@ -78,6 +82,8 @@ export default function About() {
       <span
         key={name}
         className="credits__name"
+        title={name === 'Kshitij Verma' ? '⟟ the one who began it — knock twice' : undefined}
+        style={name === 'Kshitij Verma' ? { cursor: 'help' } : undefined}
         onDoubleClick={
           name === 'Kshitij Verma'
             ? () => collect('second')

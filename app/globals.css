@@ -902,6 +902,17 @@ a:hover {
   margin: 0;
   max-width: 380px;
 }
+.contact__whisper {
+  margin: 14px 0 0;
+  max-width: 380px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+  color: var(--meta);
+  font-style: italic;
+  opacity: 0.75;
+}
 .contact__info {
   display: flex;
   flex-direction: column;

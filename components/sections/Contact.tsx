@@ -16,9 +16,11 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (message.trim() === '#Third Part Of Golden Disc') {
+    // Secret: the Golden Record's actual English greeting → reveals a fragment.
+    const normalized = message.toLowerCase().replace(/[^a-z ]/g, '').replace(/\s+/g, ' ').trim();
+    if (normalized === 'hello from the children of planet earth') {
       collect('third');
-      return; // secret message → collect the fragment, don't open Gmail
+      return; // greeting recognised → collect the fragment, don't open Gmail
     }
     const subject = encodeURIComponent(`Website enquiry from ${name || 'a visitor'}`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
@@ -38,6 +40,10 @@ export default function Contact() {
           <p className="contact__lead">
             Questions, collaborations, or a night at the dome? Send a signal and our crew will respond within one
             rotation.
+          </p>
+          <p className="contact__whisper">
+            ⟟ Some transmissions carry more than words. The Golden Record opened with a greeting from Earth&rsquo;s
+            children — send that very message, and something will answer.
           </p>
           <div className="contact__info">
             <a href={`mailto:${CLUB_EMAIL}`}>{CLUB_EMAIL}</a>
