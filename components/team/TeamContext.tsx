@@ -22,6 +22,7 @@ export type TeamState = {
   status: TeamStatus;
   score: number;
   elapsedMinutes: number;
+  elapsedSeconds: number;
   timePenalty: number;
   hintPenalty: number;
   hintsUsed: number;

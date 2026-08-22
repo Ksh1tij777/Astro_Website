@@ -29,9 +29,9 @@ export default function TeamHUD() {
 
   useEffect(() => {
     if (!team) return;
-    tickBaseRef.current = { seconds: team.elapsedMinutes * 60, at: Date.now() };
+    tickBaseRef.current = { seconds: team.elapsedSeconds, at: Date.now() };
     setDisplaySeconds(tickBaseRef.current.seconds);
-  }, [team?.elapsedMinutes]);
+  }, [team?.elapsedSeconds]);
 
   useEffect(() => {
     if (!team) return;

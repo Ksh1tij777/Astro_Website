@@ -38,6 +38,10 @@ export interface ScoreInput {
 export interface ScoreResult {
   status: TeamStatus;
   elapsedMinutes: number;
+  /** Precise elapsed time in whole seconds — for display/ticking only.
+   *  Never use this for penalty math; elapsedMinutes (floored to whole
+   *  minutes) is the one true input to the time-penalty rule. */
+  elapsedSeconds: number;
   timePenalty: number;
   hardCount: number;
   easyCount: number;
@@ -56,7 +60,8 @@ export function computeScore(input: ScoreInput): ScoreResult {
   const now = input.now ?? Date.now();
   const end = input.finished && input.finishedAtMs != null ? input.finishedAtMs : now;
 
-  const elapsedMinutes = Math.max(0, Math.floor((end - input.startedAtMs) / 60000));
+  const elapsedSeconds = Math.max(0, Math.floor((end - input.startedAtMs) / 1000));
+  const elapsedMinutes = Math.floor(elapsedSeconds / 60);
   const timePenalty = Math.min(MAX_TIME_PENALTY, Math.max(0, elapsedMinutes - FREE_MINUTES));
 
   const hardCount = input.hints.filter((h) => h.type === 'hard').length;
@@ -70,7 +75,7 @@ export function computeScore(input: ScoreInput): ScoreResult {
 
   const status: TeamStatus = input.finished ? 'finished' : elapsedMinutes >= CHALLENGE_MINUTES ? 'expired' : 'active';
 
-  return { status, elapsedMinutes, timePenalty, hardCount, easyCount, hintPenalty, correctionsTotal, score };
+  return { status, elapsedMinutes, elapsedSeconds, timePenalty, hardCount, easyCount, hintPenalty, correctionsTotal, score };
 }
 
 /** True once a team can no longer be mutated by normal (non-correction) writes. */
