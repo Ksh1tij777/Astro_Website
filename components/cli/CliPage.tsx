@@ -73,7 +73,7 @@ export default function CliPage() {
       {
         id: 'question',
         type: 'system',
-        content: 'What was End Of Transmission message transmitted to Earth?',
+        content: 'Final transmission recovered. When asked what Grace was doing, what was the reply?',
       },
     ];
 
@@ -174,7 +174,7 @@ export default function CliPage() {
     setHistoryIdx(-1);
     setInputVal('');
 
-    const cmd = trimmed.toLowerCase().replace(/\s+/g, ' ');
+    const cmd = trimmed.toLowerCase().replace(/[.!?,]/g, '').replace(/\s+/g, ' ');
     const reply = (type: TerminalLine['type'], content: string) =>
       setLines((prev) => [...prev, userLine, { id: cmdId + '-out', type, content }]);
 
@@ -210,7 +210,7 @@ export default function CliPage() {
         return;
     }
 
-    const targetAnswer = 'astro tree is the world tree where it all happens';
+    const targetAnswer = 'i am having a moment';
 
     if (cmd === targetAnswer) {
       if (won) {
