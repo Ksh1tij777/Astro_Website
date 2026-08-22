@@ -53,19 +53,30 @@ export default function FragmentHUD() {
         </div>
       </div>
 
-      {/* Top-center: the signal-origin link assembling as you collect */}
-      <div className="disc-link" aria-hidden>
+      {/* Top-center: assembles as you collect, then reveals the live link */}
+      <div className="disc-link">
         <span className="disc-link__tag">SIGNAL ORIGIN</span>
-        <span className="disc-link__code">
-          {FRAGMENTS.map((f) => (
-            <span
-              key={f.id}
-              className={`disc-link__seg${collected.includes(f.id) ? ' is-on' : ''}`}
-            >
-              {collected.includes(f.id) ? f.value : '░░░░'}
-            </span>
-          ))}
-        </span>
+        {complete ? (
+          <a
+            className="disc-link__resolved"
+            href={`https://${FINAL_URL}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {FINAL_URL}
+          </a>
+        ) : (
+          <span className="disc-link__code" aria-hidden>
+            {FRAGMENTS.map((f) => (
+              <span
+                key={f.id}
+                className={`disc-link__seg${collected.includes(f.id) ? ' is-on' : ''}`}
+              >
+                {collected.includes(f.id) ? f.value : '░░░░'}
+              </span>
+            ))}
+          </span>
+        )}
       </div>
 
       {/* Center burst when a fragment is acquired */}

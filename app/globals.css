@@ -1526,6 +1526,18 @@ textarea.field {
   color: #d0a060;
   text-shadow: 0 0 8px rgba(208, 160, 96, 0.5);
 }
+.disc-link__resolved {
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: #d0a060;
+  white-space: nowrap;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-shadow: 0 0 8px rgba(208, 160, 96, 0.5);
+}
+.disc-link__resolved:hover {
+  color: #fff;
+}
 
 /* Center burst on acquiring a fragment */
 .disc-burst {
