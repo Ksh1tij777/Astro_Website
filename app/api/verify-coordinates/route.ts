@@ -1,4 +1,8 @@
 import { NextResponse } from 'next/server';
+import { FieldValue } from 'firebase-admin/firestore';
+import { getDb } from '@/lib/firebaseAdmin';
+import { isLocked } from '@/lib/scoring';
+import { scoreForTeam, teamsCollection, type TeamRecord } from '@/lib/teams';
 
 // The expected answers live on the SERVER only — this file never ships to the
 // browser, so the coordinates can't be read from DevTools / the debugger.
@@ -14,7 +18,7 @@ const TOLERANCE = 0.02; // degrees of slack on the lat/long
 const digitsOnly = (s: string) => s.replace(/[^0-9]/g, '');
 
 export async function POST(req: Request) {
-  const { ra = '', dec = '' } = await req.json().catch(() => ({}));
+  const { ra = '', dec = '', teamCode = '' } = await req.json().catch(() => ({}));
 
   const raOk = digitsOnly(String(ra)) === digitsOnly(EXPECTED_RA);
 
@@ -24,5 +28,23 @@ export async function POST(req: Request) {
     Math.abs(nums[0] - EXPECTED_LAT) <= TOLERANCE &&
     Math.abs(nums[1] - EXPECTED_LNG) <= TOLERANCE;
 
-  return NextResponse.json({ ok: raOk && decOk });
+  const ok = raOk && decOk;
+
+  // Record the milestone server-side, but never let it touch a locked
+  // (finished/expired) team's state.
+  const code = String(teamCode).trim().toUpperCase();
+  if (ok && code) {
+    const ref = teamsCollection().doc(code);
+    const db = getDb();
+    await db.runTransaction(async (tx) => {
+      const snap = await tx.get(ref);
+      if (!snap.exists) return;
+      const team = snap.data() as TeamRecord;
+      const { status } = scoreForTeam(team);
+      if (isLocked(status)) return;
+      tx.update(ref, { coordinatesVerified: true, lastActive: FieldValue.serverTimestamp() });
+    });
+  }
+
+  return NextResponse.json({ ok });
 }

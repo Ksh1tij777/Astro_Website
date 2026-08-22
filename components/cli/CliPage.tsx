@@ -2,14 +2,11 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTeam } from '@/components/team/TeamContext';
 import './cli.css';
 
 // The passphrase winners report to Mission Control. Change per event.
 const WIN_CODE = 'VOYAGER//1977//CONTACT';
-
-// Google Apps Script web-app URL that logs the winning team to a Sheet.
-// Set NEXT_PUBLIC_LOG_URL in your env (Vercel) to your deployed script URL.
-const LOG_URL = process.env.NEXT_PUBLIC_LOG_URL ?? '';
 
 const DISC_ART = `
          .-""""""-.
@@ -31,6 +28,7 @@ interface TerminalLine {
 
 export default function CliPage() {
   const router = useRouter();
+  const { team, refresh } = useTeam();
   const [inputVal, setInputVal] = useState('');
   const [history, setHistory] = useState<string[]>([]);
   const [historyIdx, setHistoryIdx] = useState<number>(-1);
@@ -39,8 +37,6 @@ export default function CliPage() {
   const [scanlines, setScanlines] = useState(true);
   const [currentTime, setCurrentTime] = useState('');
   const [won, setWon] = useState(false);
-  const [awaitingTeam, setAwaitingTeam] = useState(false);
-  const [logged, setLogged] = useState(false);
 
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -58,27 +54,43 @@ export default function CliPage() {
 
   // Initial Welcome Banner and Question Prompt
   useEffect(() => {
-    const initialLines: TerminalLine[] = [
-      {
-        id: 'banner',
-        type: 'banner',
-        content: `
-    _   ____ _____ ____   ___  _   _  ___  __  __ __   __   ____ _     _   _ ____  
-   / \\ / ___|_   _|  _ \\ / _ \\| \\ | |/ _ \\|  \\/  |\\ \\ / /  / ___| |   | | | |  _ \\ 
-  / _ \\\\___ \\ | | | |_) | | | |  \\| | | | | |\\/| | \\ V /  | |   | |   | | | | |_) |
- / ___ \\___) || | |  _ <| |_| | |\\  | |_| | |  | |  | |   | |___| |___| |_| |  _ < 
-/_/   \\_\\____/ |_| |_| \\_\\\\___/|_| \\_|\\___/|_|  |_|  |_|    \\____|_____|\\___/|____/ 
-        `,
-      },
-      {
-        id: 'question',
-        type: 'system',
-        content: 'Final transmission recovered. When asked what Grace was doing, what was the reply?',
-      },
-    ];
+    if (!team) return; // wait for the team session to hydrate before deciding what to show
 
-    setLines(initialLines);
-  }, []);
+    const banner: TerminalLine = {
+      id: 'banner',
+      type: 'banner',
+      content: `
+    _   ____ _____ ____   ___  _   _  ___  __  __ __   __   ____ _     _   _ ____
+   / \\ / ___|_   _|  _ \\ / _ \\| \\ | |/ _ \\|  \\/  |\\ \\ / /  / ___| |   | | | |  _ \\
+  / _ \\\\___ \\ | | | |_) | | | |  \\| | | | | |\\/| | \\ V /  | |   | |   | | | | |_) |
+ / ___ \\___) || | |  _ <| |_| | |\\  | |_| | |  | |  | |   | |___| |___| |_| |  _ <
+/_/   \\_\\____/ |_| |_| \\_\\\\___/|_| \\_|\\___/|_|  |_|  |_|    \\____|_____|\\___/|____/
+        `,
+    };
+
+    if (team.finished) {
+      setWon(true);
+      setLines([
+        banner,
+        { id: 'already', type: 'success', content: `> Contact already established — ${team.teamName}, final score ${team.score}.` },
+      ]);
+      return;
+    }
+
+    if (team.status === 'expired') {
+      setLines([
+        banner,
+        { id: 'expired', type: 'error', content: '> TRANSMISSION WINDOW CLOSED — the 90-minute channel has gone dark.' },
+      ]);
+      return;
+    }
+
+    setLines([
+      banner,
+      { id: 'question', type: 'system', content: 'Final transmission recovered. When asked what Grace was doing, what was the reply?' },
+    ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [team?.teamCode]);
 
   // Auto-scroll terminal to bottom
   useEffect(() => {
@@ -128,38 +140,49 @@ export default function CliPage() {
       { id: 'w8', type: 'system', content: '> Welcome to the Signal Corps.' },
       { id: 'w9', type: 'success', content: `> FINAL TRANSMISSION CODE:  ${WIN_CODE}` },
       { id: 'w10', type: 'text', content: '> Report this code to Mission Control to claim your place.' },
-      { id: 'w11', type: 'system', content: '> Log your contact: type your TEAM NAME and press Enter.' },
     ];
     seq.forEach((line, i) => {
       setTimeout(() => setLines((prev) => [...prev, line]), 380 * (i + 1));
     });
-    // After the reveal finishes, start listening for the team name.
-    setTimeout(() => setAwaitingTeam(true), 380 * (seq.length + 1));
+    // The team is already known from login — log the finish automatically
+    // once the reveal finishes, no typed name required.
+    setTimeout(() => logWinner(), 380 * (seq.length + 1));
   };
 
-  // Append the winning team + completion time to the Google Sheet.
-  const logWinner = async (team: string) => {
-    const finishedAt = new Date().toLocaleString();
-    if (LOG_URL) {
-      try {
-        await fetch(LOG_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ team, time: finishedAt }),
-        });
-      } catch {
-        /* fire-and-forget; the sheet timestamps on its side */
+  // Records the finish server-side (authoritative finishedAt/score) and
+  // prints the confirmation line using what the server returned.
+  const logWinner = async () => {
+    if (!team?.teamCode) return;
+    try {
+      const res = await fetch('/api/team/finish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ teamCode: team.teamCode }),
+      });
+      const data = await res.json();
+      refresh();
+      if (!res.ok) {
+        setLines((prev) => [
+          ...prev,
+          { id: 'logfail-' + Date.now(), type: 'error', content: `> ${data.error ?? 'Could not log contact.'}` },
+        ]);
+        return;
       }
+      const finishedAt = data.finishedAt ? new Date(data.finishedAt).toLocaleString() : new Date().toLocaleString();
+      setLines((prev) => [
+        ...prev,
+        {
+          id: 'logged-' + Date.now(),
+          type: 'success',
+          content: `> CONTACT LOGGED — ${team.teamName} · ${finishedAt} · SCORE ${data.score}`,
+        },
+      ]);
+    } catch {
+      setLines((prev) => [
+        ...prev,
+        { id: 'logfail-' + Date.now(), type: 'error', content: '> LINK FAILURE: could not reach the gateway.' },
+      ]);
     }
-    setLines((prev) => [
-      ...prev,
-      {
-        id: 'logged-' + Date.now(),
-        type: 'success',
-        content: `> CONTACT LOGGED — ${team} · ${finishedAt}`,
-      },
-    ]);
   };
 
   const handleCommand = (userAnswer: string) => {
@@ -177,15 +200,6 @@ export default function CliPage() {
     const cmd = trimmed.toLowerCase().replace(/[.!?,]/g, '').replace(/\s+/g, ' ');
     const reply = (type: TerminalLine['type'], content: string) =>
       setLines((prev) => [...prev, userLine, { id: cmdId + '-out', type, content }]);
-
-    // After winning, the next line typed is the team name → log it once.
-    if (awaitingTeam && !logged) {
-      setLines((prev) => [...prev, userLine]);
-      setAwaitingTeam(false);
-      setLogged(true);
-      logWinner(trimmed);
-      return;
-    }
 
     // Utility / easter-egg commands
     switch (cmd) {
@@ -213,8 +227,12 @@ export default function CliPage() {
     const targetAnswer = 'i am having a moment';
 
     if (cmd === targetAnswer) {
-      if (won) {
+      if (won || team?.finished) {
         reply('system', '> Contact already established.');
+        return;
+      }
+      if (team?.status === 'expired') {
+        reply('error', '> TRANSMISSION WINDOW CLOSED — the 90-minute channel has gone dark.');
         return;
       }
       setWon(true);
