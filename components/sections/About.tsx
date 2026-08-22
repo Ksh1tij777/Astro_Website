@@ -94,9 +94,6 @@ export default function About() {
       </span>
     ))}
   </div>
-  <p className="contact__whisper" style={{ textAlign: 'center' }}>
-    ⟟ The architects sign their work. Knock twice on the one who began it, and it will transmit.
-  </p>
 </div>
       </Reveal>
     </section>
