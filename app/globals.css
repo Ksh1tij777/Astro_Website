@@ -933,6 +933,18 @@ a:hover {
   font-style: italic;
   opacity: 0.75;
 }
+.contact__status {
+  margin: 4px 0 0;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+.contact__status--ok {
+  color: #3fa86a;
+}
+.contact__status--bad {
+  color: #ff6b6b;
+}
 .contact__info {
   display: flex;
   flex-direction: column;
