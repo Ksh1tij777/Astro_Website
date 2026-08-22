@@ -52,6 +52,9 @@ export default function Footer() {
         </div>
       </div>
 
+      <p className="site-footer__whisper">
+        ⟟ Not every door leads home. One here doubles back — press it, and the void answers.
+      </p>
       <div className="site-footer__bar">© 2026 Astronomy Club, LNMIIT · All rights reserved.</div>
     </footer>
   );

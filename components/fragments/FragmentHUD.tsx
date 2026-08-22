@@ -88,6 +88,7 @@ export default function FragmentHUD() {
             <p className="disc-takeover__l1">GOLDEN RECORD REASSEMBLED</p>
             <p className="disc-takeover__l2">SIGNAL ORIGIN LOCATED</p>
             <p className="disc-takeover__url">{FINAL_URL}</p>
+            <p className="disc-takeover__open">⟟ THE TRANSMISSION IS NOW OPEN — BEGIN THE VOYAGE</p>
             <button type="button" className="disc-takeover__close" onClick={() => setTakeover(false)}>
               CONTINUE
             </button>
