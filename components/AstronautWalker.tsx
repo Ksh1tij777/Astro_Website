@@ -8,44 +8,18 @@ export default function AstronautWalker() {
   const [visible, setVisible] = useState(true);
   const [fallPos, setFallPos] = useState({ x: 0, y: 0 });
   const ref = useRef<HTMLDivElement>(null);
-  const clickCountRef = useRef(0);
-  const clickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-const handleClick = () => {
-  clickCountRef.current += 1;
-
-  if (clickCountRef.current === 1) {
-    clickTimerRef.current = setTimeout(() => {
-      clickCountRef.current = 0;
-      triggerFall(); // single click confirmed — do the fall now
-    }, 300);
-  } else if (clickCountRef.current === 2) {
-    if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
-    clickCountRef.current = 0;
+  // A plain double-click reveals the fragment; the astronaut then falls once
+  // and is gone. There is no single-click behaviour, so nothing triggers by
+  // accident and it never randomly respawns/glitches.
+  const handleDoubleClick = () => {
+    if (falling || !visible) return;
     collect('first');
-    triggerFinalFall(); // falls, then gone forever — no respawn
-  }
-};
-
-const triggerFall = () => {
-  if (falling || !visible) return;
-  const rect = ref.current?.getBoundingClientRect();
-  if (rect) setFallPos({ x: rect.left, y: rect.top });
-  setFalling(true);
-  setTimeout(() => setVisible(false), 900);
-  setTimeout(() => {
-    setFalling(false);
-    setVisible(true);
-  }, 6000);
-};
-
-const triggerFinalFall = () => {
-  if (falling || !visible) return;
-  const rect = ref.current?.getBoundingClientRect();
-  if (rect) setFallPos({ x: rect.left, y: rect.top });
-  setFalling(true);
-  setTimeout(() => setVisible(false), 900); // falls, then hidden — no respawn timer after this
-};
+    const rect = ref.current?.getBoundingClientRect();
+    if (rect) setFallPos({ x: rect.left, y: rect.top });
+    setFalling(true);
+    setTimeout(() => setVisible(false), 900);
+  };
 
   if (!visible) return null;
 
@@ -54,7 +28,7 @@ const triggerFinalFall = () => {
       ref={ref}
       className={`astronaut-walker${falling ? ' astronaut-walker--falling' : ''}`}
       style={falling ? { left: fallPos.x, top: fallPos.y } : undefined}
-      onClick={handleClick}
+      onDoubleClick={handleDoubleClick}
       role="button"
       aria-label="Dark astronaut easter egg"
       title="⟟ a lost wanderer — knock twice"

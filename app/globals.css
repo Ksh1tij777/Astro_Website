@@ -47,6 +47,10 @@ a:hover {
   height: 50px;
   animation: walk-boundary 22s steps(60) infinite;
 }
+/* Hold still while hovered so it's an easy double-click target */
+.astronaut-walker:hover {
+  animation-play-state: paused;
+}
 
 .astronaut-walker__bounce {
   width: 100%;
