@@ -12,8 +12,8 @@ export const FRAGMENTS: Fragment[] = [
   { id: 'fourth', slot: 4, value: 'records' },
 ];
 
-// Revealed once all four are collected. Set this to the real destination.
-export const FINAL_URL = 'github.com/rajharsh13564/gaia_records';
+// Revealed once all four are collected — the listening-station (GitHub Pages) URL.
+export const FINAL_URL = 'rajharsh13564.github.io/gaia_records';
 
 const STORAGE_KEY = 'golden-disc-fragments';
 
